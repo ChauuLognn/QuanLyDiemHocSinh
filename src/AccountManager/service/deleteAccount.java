@@ -1,5 +1,10 @@
 package AccountManager.service;
 
+import AccountManager.Account;
+import AccountManager.data.AccountDatabase;
+
+import java.util.Scanner;
+
 public class deleteAccount {
     private AccountDatabase accountDB = AccountDatabase.getAccountDB();
     String username;
