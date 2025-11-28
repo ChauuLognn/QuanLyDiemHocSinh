@@ -4,7 +4,7 @@ import java.util.Scanner;
 import StudentManager.data.StudentDatabase;
 import StudentManager.Student;
 
-public class editStudent {
+public class EditStudent {
     private StudentDatabase studentDB = StudentDatabase.getStudentDB();
 
     String id;

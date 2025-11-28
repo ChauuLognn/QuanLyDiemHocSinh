@@ -5,7 +5,7 @@ import ClassManager.data.ClassDatabase;
 
 import java.util.Scanner;
 
-public class editClass {
+public class EditClass {
     private ClassDatabase classDB = ClassDatabase.getClassDB();
     String classInfo;
     Scanner sc = new Scanner(System.in);
@@ -33,10 +33,10 @@ public class editClass {
         int choose;
         do{
             System.out.print("  Chọn thông tin muốn sửa: \n" +
-                            "1. Tên lớp\n" +
-                            "2. Mã lớp\n" +
-                            "3. Thoát\n" +
-                            "Chọn: ");
+                    "1. Tên lớp\n" +
+                    "2. Mã lớp\n" +
+                    "3. Thoát\n" +
+                    "Chọn: ");
             choose = sc.nextInt();
             sc.nextLine();
 

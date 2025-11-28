@@ -5,7 +5,7 @@ import ClassManager.data.ClassDatabase;
 
 import java.util.Scanner;
 
-public class deleteClass {
+public class DeleteClass {
     private ClassDatabase classDB = ClassDatabase.getClassDB();
     String classID;
     Scanner sc = new Scanner(System.in);
@@ -13,7 +13,7 @@ public class deleteClass {
     public void delete(){
         //Hiển thị danh sách các lớp trước khi xóa
         classDB.showAllClasses();
-        System.out.print("Nhập mã lớp muon xóa: ");
+        System.out.print("Nhập mã lớp muốn xóa: ");
         classID = sc.nextLine();
 
         //Tìm kiếm lớp

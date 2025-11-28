@@ -1,15 +1,13 @@
 package StudentManager.service;
 
 
-import java.util.ArrayList;
 import java.util.Scanner;
 import StudentManager.Student;
 import StudentManager.data.StudentDatabase;
 import ClassManager.Classes;
 import ClassManager.data.ClassDatabase;
-import ClassManager.service.addClass;
 
-public class addStudent {
+public class AddStudent {
     private StudentDatabase studentDB = StudentDatabase.getStudentDB();
     private ClassDatabase classesDB = ClassDatabase.getClassDB();
     Scanner sc = new Scanner(System.in);

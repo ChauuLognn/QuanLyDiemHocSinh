@@ -5,7 +5,7 @@ import java.util.Scanner;
 import StudentManager.Student;
 import StudentManager.data.StudentDatabase;
 
-public class deleteStudent {
+public class DeleteStudent {
     private StudentDatabase studentDB = StudentDatabase.getStudentDB();
     String id;
     Scanner sc = new Scanner(System.in);
