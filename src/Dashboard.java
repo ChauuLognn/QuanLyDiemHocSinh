@@ -139,14 +139,21 @@ public class Dashboard extends JFrame {
 
         // Click action
         btn.addActionListener(e -> {
-            if (text.equals("Quản lý học sinh")) {
+            if (text.contains("Quản lý học sinh") || text.contains("users")) {
                 openStudentManagement();
-            } else if (!isActive) {
+            }
+            else if (text.contains("Môn học") || text.contains("Subject")) {
+                this.dispose(); // Đóng Dashboard
+                SwingUtilities.invokeLater(() -> new SubjectManagement().setVisible(true)); // Mở SubjectManagement
+            }
+            else if (!isActive) {
                 JOptionPane.showMessageDialog(this, "Chức năng: " + text);
             }
         });
 
         return btn;
+
+
     }
 
     // ============================================================
@@ -279,10 +286,16 @@ public class Dashboard extends JFrame {
         });
 
         // Sự kiện click (Giữ nguyên logic cũ của ông)
+        // Trong hàm createActionButton (nếu dùng Quick Actions)
         btn.addActionListener(e -> {
-            if (text.contains("Thêm")) {
+            if (text.contains("Thêm") || text.contains("Học sinh")) {
                 openStudentManagement();
-            } else {
+            }
+            else if (text.contains("Môn học") || text.contains("Lớp học")) { // Giả sử nút đó tên là Môn học
+                this.dispose();
+                SwingUtilities.invokeLater(() -> new SubjectManagement().setVisible(true));
+            }
+            else {
                 JOptionPane.showMessageDialog(Dashboard.this, "Chức năng: " + text);
             }
         });
