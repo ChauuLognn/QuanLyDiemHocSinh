@@ -5,11 +5,12 @@ import AccountManager.data.AccountDatabase;
 
 import java.util.Scanner;
 
-public class addAccount {
+public class AddAccount {
     Scanner sc = new Scanner(System.in);
     private AccountDatabase accountDB = AccountDatabase.getAccountDB();
     String username;
     String password;
+    String ID;
     boolean isExit;
     public void add(){
         do {
@@ -31,7 +32,10 @@ public class addAccount {
         System.out.print("Nhập mật khẩu: ");
         password = sc.nextLine();
         password = accountDB.hashSHA256(password);
-        accountDB.addAccount(username, password);
+        System.out.print("Nhập mã học sinh/ giáo viên: ");
+        ID = sc.nextLine();
+
+        accountDB.addAccount(username, password, ID);
         System.out.println("Thêm tài khoản thành công!");
     }
 }

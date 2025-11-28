@@ -5,7 +5,7 @@ import AccountManager.data.AccountDatabase;
 
 import java.util.Scanner;
 
-public class deleteAccount {
+public class DeleteAccount {
     private AccountDatabase accountDB = AccountDatabase.getAccountDB();
     String username;
     Scanner sc = new Scanner(System.in);
@@ -18,7 +18,12 @@ public class deleteAccount {
             System.out.println("Không tìm thấy tài khoản " + username);
             return;
         }
-        accountDB.deleteAccount(username);
-        System.out.println("Đã xóa tài khoản thành công!");
+
+        boolean success = accountDB.deleteAccount(username);
+        if (success)
+            System.out.println("Đã xóa tài khoản thành công!");
+        else {
+            System.out.println("Lỗi! Không thể xóa tài khoản.");
+        }
     }
 }

@@ -2,14 +2,15 @@ package AccountManager.data;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
 import AccountManager.Account;
 
 public class AccountDatabase {
     private static AccountDatabase accountDB = new AccountDatabase();
-    private ArrayList<Account> accounts = new ArrayList<>();
+
+    private HashMap<String, Account> accounts = new HashMap<>();
 
     Scanner sc = new Scanner(System.in);
 
@@ -23,17 +24,18 @@ public class AccountDatabase {
             System.out.println("Danh sách tài khoản trống!");
             return;
         }
-        for (Account a : accounts){
-            System.out.println("Tên đăng nhập: " + a.getUsername() +
-                                "\nMật khẩu: " + a.getPassword() + "\n");
-        }
+        accounts.forEach((username, account) -> {
+            System.out.println("Tên đăng nhập: " + account.getUsername() +
+                    "Mật khẩu: " + account.getPassword() +
+                    "Mã học sinh/ Giáo viên: " + account.getID());
+        });
     }
 
     //Thêm tài khoản
-    public void addAccount(String username, String password){
+    public void addAccount(String username, String password, String ID){
         int oldSize = accounts.size();
-        Account newAccount = new Account(username, password);
-        accounts.add(newAccount);
+        Account newAccount = new Account(username, password, ID);
+        accounts.put(username, newAccount);
         if (oldSize < accounts.size()){
             System.out.println("Đã thêm tài khoản thành công!");
         } else {
@@ -43,18 +45,14 @@ public class AccountDatabase {
 
     //Tìm kiếm tài khoản theo tên đăng nhập
     public Account findAccountByUsername (String username){
-        for (Account a : accounts){
-            if (a.getUsername().equals(username)){
-                return a;
-            }
-        }
-        return null;
+        Account a = accounts.get(username);
+
+        return a;
     }
 
     //Xóa tài khoản
-    public void deleteAccount(String username){
-        Account a = accountDB.findAccountByUsername(username);
-        if (a != null) accounts.remove(a);
+    public boolean deleteAccount(String username){
+        return accounts.remove(username) != null;
     }
 
     //Dùng hashing mã hóa mật khẩu
@@ -77,5 +75,39 @@ public class AccountDatabase {
         catch (NoSuchAlgorithmException e){
             throw new RuntimeException(e);
         }
+    }
+
+    //Kiểm tra đăng nhập
+    public boolean checkLogin(String username, String password){
+        Account a = accountDB.findAccountByUsername(username);
+        if (a == null){
+            System.out.println("Sai tên đăng nhập!");
+            return false;
+        }
+        String savedPassword = a.getPassword();
+        if (!password.equals(savedPassword)){
+            System.out.println("Sai mật khẩu!");
+            return false;
+        }
+        return true;
+    }
+
+    //Cập nhật tài khoản
+    public void updateUsername (String oldUsername, String newUsername){
+        Account a = accounts.get(oldUsername);
+
+        if (a == null){
+            System.out.println("Không tìm thấy tài khoản!");
+            return;
+        }
+
+        //Xóa username cũ
+        accounts.remove(oldUsername);
+
+        //Cập nhat username mới
+        a.setUsername(newUsername);
+
+        //Lưu lại với username mới
+        accounts.put(newUsername, a);
     }
 }
