@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class LoginScreen extends JFrame {
+public class Login extends JFrame {
     private JTextField txtUsername;
     private JPasswordField txtPassword;
     private JCheckBox chkRemember;
@@ -10,7 +10,7 @@ public class LoginScreen extends JFrame {
     private JLabel lblForgotPassword;
     private boolean passwordVisible = false;
 
-    public LoginScreen() {
+    public Login() {
         setTitle("Student Management System");
         setSize(400, 550);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -145,7 +145,7 @@ public class LoginScreen extends JFrame {
         lblForgotPassword.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                JOptionPane.showMessageDialog(LoginScreen.this,
+                JOptionPane.showMessageDialog(Login.this,
                         "Please contact Admin to reset password.",
                         "Forgot Password", JOptionPane.INFORMATION_MESSAGE);
             }
@@ -238,7 +238,7 @@ public class LoginScreen extends JFrame {
             this.dispose();
             SwingUtilities.invokeLater(() -> {
                 // Mở màn hình chính mà bạn đã có code trong link chat
-                new StudentManagementSwing().setVisible(true);
+                new Dashboard().setVisible(true);
             });
         } else {
             JOptionPane.showMessageDialog(this, "Invalid Username or Password!", "Error", JOptionPane.ERROR_MESSAGE);
@@ -247,7 +247,7 @@ public class LoginScreen extends JFrame {
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            new LoginScreen().setVisible(true);
+            new Login().setVisible(true);
         });
     }
 }
