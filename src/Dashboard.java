@@ -167,16 +167,27 @@ public class Dashboard extends JFrame {
 
         content.add(topSection, BorderLayout.NORTH);
 
-        // Stats cards
-        JPanel statsPanel = new JPanel(new GridLayout(2, 2, 20, 20));
+        // Stats cards - chỉ 2 card chính
+        JPanel statsPanel = new JPanel(new GridLayout(1, 2, 20, 0));
         statsPanel.setBackground(secondaryColor);
+        statsPanel.setPreferredSize(new Dimension(0, 150));
 
         statsPanel.add(createSimpleCard("Tổng học sinh", "250"));
-        statsPanel.add(createSimpleCard("Điểm trung bình", "7.85"));
-        statsPanel.add(createSimpleCard("Học sinh giỏi", "45"));
         statsPanel.add(createSimpleCard("Tổng số lớp", "8"));
 
-        content.add(statsPanel, BorderLayout.CENTER);
+        // Middle section - Quick actions
+        JPanel middleSection = new JPanel(new BorderLayout(20, 20));
+        middleSection.setBackground(secondaryColor);
+
+        JPanel quickActionsPanel = createQuickActionsPanel();
+        middleSection.add(quickActionsPanel, BorderLayout.CENTER);
+
+        JPanel centerContainer = new JPanel(new BorderLayout(0, 20));
+        centerContainer.setBackground(secondaryColor);
+        centerContainer.add(statsPanel, BorderLayout.NORTH);
+        centerContainer.add(middleSection, BorderLayout.CENTER);
+
+        content.add(centerContainer, BorderLayout.CENTER);
 
         // Bottom info
         JPanel bottomPanel = new JPanel(new GridLayout(1, 2, 20, 0));
@@ -190,11 +201,11 @@ public class Dashboard extends JFrame {
                 "Yếu: 45 học sinh (18%)"
         }));
 
-        bottomPanel.add(createInfoCard("Hoạt động gần đây", new String[]{
-                "Thêm học sinh: Nguyễn Văn A",
-                "Cập nhật điểm: Trần Thị B",
-                "Xóa học sinh: Lê Văn C",
-                "Xuất báo cáo lớp IT01"
+        bottomPanel.add(createInfoCard("Lớp học nổi bật", new String[]{
+                "IT01: 32 học sinh - ĐTB 8.5",
+                "IT02: 30 học sinh - ĐTB 7.8",
+                "IT03: 28 học sinh - ĐTB 8.2",
+                "IT04: 31 học sinh - ĐTB 7.5"
         }));
 
         content.add(bottomPanel, BorderLayout.SOUTH);
@@ -202,6 +213,82 @@ public class Dashboard extends JFrame {
         return content;
     }
 
+    // ============================================================
+    // QUICK ACTIONS PANEL
+    // ============================================================
+    // ============================================================
+    // QUICK ACTIONS PANEL (ĐÃ SỬA LẠI)
+    // ============================================================
+    private JPanel createQuickActionsPanel() {
+        JPanel panel = new JPanel(new BorderLayout(0, 15)); // Khoảng cách giữa tiêu đề và nút
+        panel.setBackground(Color.WHITE);
+        // Viền bo ngoài panel
+        panel.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(new Color(230, 230, 230), 1),
+                BorderFactory.createEmptyBorder(20, 20, 20, 20)
+        ));
+
+        JLabel title = new JLabel("Thao tác nhanh");
+        title.setFont(new Font("Arial", Font.BOLD, 15));
+        title.setForeground(primaryColor);
+        panel.add(title, BorderLayout.NORTH);
+
+        // Grid 1 dòng 6 cột (hoặc 2 dòng 3 cột tùy ông thích, ở đây để 1 dòng cho thoáng)
+        JPanel buttonsPanel = new JPanel(new GridLayout(1, 6, 15, 0));
+        buttonsPanel.setBackground(Color.WHITE);
+
+        // Thêm nút kèm Icon (Emoji)
+        buttonsPanel.add(createActionButton("Thêm HS", "➕"));
+        buttonsPanel.add(createActionButton("Nhập điểm", "📝"));
+        buttonsPanel.add(createActionButton("Báo cáo", "🖨️"));
+        buttonsPanel.add(createActionButton("Thống kê", "📊"));
+        buttonsPanel.add(createActionButton("QL Lớp", "🏫"));
+        buttonsPanel.add(createActionButton("Tìm kiếm", "🔍"));
+
+        panel.add(buttonsPanel, BorderLayout.CENTER);
+
+        return panel;
+    }
+
+    private JButton createActionButton(String text, String icon) {
+        // Dùng HTML để căn giữa và xuống dòng: Icon to ở trên, Text nhỏ ở dưới
+        String htmlLabel = "<html><center><span style='font-size:20px'>" + icon + "</span><br><span style='font-size:10px'>" + text + "</span></center></html>";
+
+        JButton btn = new JButton(htmlLabel);
+        btn.setForeground(primaryColor);
+        btn.setBackground(Color.WHITE);
+
+        // Viền nhạt cho từng nút
+        btn.setBorder(BorderFactory.createLineBorder(new Color(220, 220, 220), 1));
+
+        btn.setFocusPainted(false);
+        btn.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
+        // Hiệu ứng Hover: Rê chuột vào thì nền xám nhẹ, viền đậm hơn tí
+        btn.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                btn.setBackground(new Color(245, 248, 250)); // Màu nền khi hover
+                btn.setBorder(BorderFactory.createLineBorder(new Color(180, 180, 180), 1));
+            }
+            @Override
+            public void mouseExited(MouseEvent e) {
+                btn.setBackground(Color.WHITE); // Trả về màu cũ
+                btn.setBorder(BorderFactory.createLineBorder(new Color(220, 220, 220), 1));
+            }
+        });
+
+        // Sự kiện click (Giữ nguyên logic cũ của ông)
+        btn.addActionListener(e -> {
+            if (text.contains("Thêm")) {
+                openStudentManagement();
+            } else {
+                JOptionPane.showMessageDialog(Dashboard.this, "Chức năng: " + text);
+            }
+        });
+
+        return btn;
+    }
     // ============================================================
     // SIMPLE CARD
     // ============================================================
@@ -265,7 +352,7 @@ public class Dashboard extends JFrame {
     private void openStudentManagement() {
         this.dispose();
         SwingUtilities.invokeLater(() -> {
-            new StudentManagementSwing().setVisible(true);
+            new StudentManagement().setVisible(true);
         });
     }
 
