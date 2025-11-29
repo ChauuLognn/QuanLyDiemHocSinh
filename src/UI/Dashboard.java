@@ -146,11 +146,25 @@ public class Dashboard extends JFrame {
             }
             else if (text.contains("Môn học") || text.contains("Subject")) {
                 this.dispose(); // Đóng Dashboard
-                SwingUtilities.invokeLater(() -> new SubjectManagement().setVisible(true)); // Mở SubjectManagement
+                SwingUtilities.invokeLater(() -> new SubjectManagement().setVisible(true));
+            }
+            else if (text.contains("Lớp") || text.contains("Class")) {
+                this.dispose(); // Đóng Dashboard
+                SwingUtilities.invokeLater(() -> new ClassManagement().setVisible(true));// Mở SubjectManagement
+            }
+            else if (text.contains("Thống kê") || text.contains("Statistics")) {
+                this.dispose();
+                SwingUtilities.invokeLater(() -> new Statistics().setVisible(true));
+            }
+            else if (text.contains("Báo cáo") || text.contains("Report")) {
+                this.dispose();
+                new ReportManagement().setVisible(true);
             }
             else if (!isActive) {
                 JOptionPane.showMessageDialog(this, "Chức năng: " + text);
             }
+
+
         });
 
         return btn;
