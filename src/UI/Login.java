@@ -1,3 +1,5 @@
+package UI;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -256,7 +258,7 @@ public class Login extends JFrame {
         String username = txtUsername.getText().trim();
         String password = new String(txtPassword.getPassword());
 
-        if (username.equals("CHAULONG") && password.equals("1011")) {
+        if (username.equals("admin") && password.equals("1011")) {
             JOptionPane.showMessageDialog(this, "Login Successful!");
 
             // Chuyển trang

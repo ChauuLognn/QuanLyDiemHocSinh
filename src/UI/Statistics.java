@@ -1,10 +1,10 @@
+package UI;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.Arc2D;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Statistics extends JFrame {
     // Colors
