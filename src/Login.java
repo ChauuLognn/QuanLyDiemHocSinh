@@ -172,6 +172,31 @@ public class Login extends JFrame {
         btnLogin.setOpaque(false);
         btnLogin.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
+        mainPanel.add(btnLogin);
+
+        // --- THÊM PHẦN NÀY: Link chuyển sang trang Đăng ký ---
+        JLabel lblRegister = new JLabel("<html>Don't have an account? <u>Sign Up</u></html>");
+        lblRegister.setFont(new Font("Arial", Font.PLAIN, 12));
+        lblRegister.setForeground(Color.WHITE);
+        // Đặt vị trí ở dưới nút Login (y = 450)
+        lblRegister.setBounds(0, 450, 400, 30);
+        lblRegister.setHorizontalAlignment(SwingConstants.CENTER); // Căn giữa
+        lblRegister.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
+        // Sự kiện click
+        lblRegister.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                // Đóng Login và mở Register
+                Login.this.dispose();
+                new Register().setVisible(true);
+            }
+        });
+        mainPanel.add(lblRegister);
+        // ----------------------------------------------------
+
+        add(mainPanel);
+
         // Hover Effect
         btnLogin.addMouseListener(new MouseAdapter() {
             @Override
