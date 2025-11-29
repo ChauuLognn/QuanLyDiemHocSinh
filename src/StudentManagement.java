@@ -480,4 +480,6 @@ public class StudentManagement extends JFrame {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> new StudentManagement().setVisible(true));
     }
+
+
 }
