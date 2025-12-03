@@ -34,4 +34,8 @@ public class Student {
         return studentClass;
     }
 
+    @Override
+    public String toString(){
+        return studentName + " - " + studentID + " - Lớp " + studentClass;
+    }
 }

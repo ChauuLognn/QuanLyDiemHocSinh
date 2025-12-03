@@ -1,6 +1,7 @@
 package GradeManager.data;
 
 import GradeManager.Grade;
+import Exception.*;
 
 import java.util.HashMap;
 
@@ -30,20 +31,28 @@ public class GradeDatabase {
     }
 
     //Cập nhật điểm cho học sinh theo ID
-    public void addOrUpdateGrade(Grade grade){
+    public void addOrUpdateGrade(Grade grade) throws InvalidScoreException {
+        Validator.validateScore(grade.getRegularScore());
+        Validator.validateScore(grade.getMidtermScore());
+        Validator.validateScore(grade.getFinalScore());
+
         grades.put(grade.getStudentID(), grade);
     }
 
 
     //Lấy điểm của học sinh theo ID
-    public Grade getGradeByStudentID (String studentID){
+    public Grade getGradeByStudentID (String studentID) throws NotFoundException{
+        if (!grades.containsKey(studentID)){
+            throw new NotFoundException("Không tìm thấy điểm của học sinh " + studentID);
+        }
         return grades.get(studentID);
     }
 
     //Xóa điểm của học sinh theo ID
-    public void deleteGrade(String studentID){
-        if (grades.containsKey(studentID)){
-            grades.put(studentID, null);
+    public void deleteGrade(String studentID) throws NotFoundException {
+        if (!grades.containsKey(studentID)){
+            throw new NotFoundException("Không tìm thấy học sinh có mã " + studentID);
         }
+        grades.remove(studentID);
     }
 }

@@ -6,6 +6,9 @@ import StudentManager.Student;
 import StudentManager.data.StudentDatabase;
 import ClassManager.Classes;
 import ClassManager.data.ClassDatabase;
+import Exception.*;
+
+
 
 public class AddStudent {
     private StudentDatabase studentDB = StudentDatabase.getStudentDB();
@@ -15,15 +18,29 @@ public class AddStudent {
 
     //Add student
     public void add(){
-        System.out.print("Nhập tên học sinh: ");
-        String studentName = sc.nextLine();
-        String studentID;
+        String studentName = "";
+        try {
+            System.out.print("Nhập tên học sinh: ");
+            studentName = sc.nextLine();
+            Validator.validateName(studentName);
+        } catch (InvalidNameException e){
+            System.out.println("Lỗi: " + e.getMessage());
+        }
+
+        String studentID = "";
         String studentClassID = "";
         boolean isExit;
         do {
             isExit = false;
-            System.out.print("Nhập mã học sinh: ");
-            studentID = sc.nextLine();
+            try {
+                System.out.print("Nhập mã học sinh: ");
+                studentID = sc.nextLine();
+                Validator.validateID(studentID);
+                isExit = true;
+            } catch (InvalidIDException e) {
+                System.out.println("Lỗi: " + e.getMessage());
+            }
+
 
             //Kiểm tra trùng ID
             if (studentDB.findByID(studentID) != null){
