@@ -1,6 +1,7 @@
 package GradeManager.service;
 
 import GradeManager.data.GradeDatabase;
+import Exception.NotFoundException;
 
 import java.util.Scanner;
 
@@ -13,12 +14,11 @@ public class DeleteGrade {
         System.out.print("Nhập mã học sinh: ");
         studentID = sc.nextLine();
 
-        if (!gradeDB.getGrades().containsKey(studentID)){
-            System.out.println("Không tìm thấy học sinh có mã " + studentID);
-            return;
+        try {
+            gradeDB.deleteGrade(studentID);
+            System.out.println("Xóa điểm thành công!");
+        } catch (NotFoundException e){
+            System.out.println("Lỗi: " + e.getMessage());
         }
-
-        gradeDB.deleteGrade(studentID);
-        System.out.println("Xóa điểm thành công!");
     }
 }

@@ -5,7 +5,7 @@ import Exception.*;
 
 import java.util.HashMap;
 
-public class GradeDatabase {
+public class    GradeDatabase {
     private static HashMap<String, Grade> grades = new HashMap<>();
     private static GradeDatabase gradeDB = new GradeDatabase();
 

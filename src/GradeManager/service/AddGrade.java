@@ -2,7 +2,7 @@ package GradeManager.service;
 
 import GradeManager.Grade;
 import GradeManager.data.GradeDatabase;
-
+import Exception.*;
 import java.util.Scanner;
 
 public class AddGrade {
@@ -14,20 +14,37 @@ public class AddGrade {
 
     Scanner sc = new Scanner(System.in);
 
-    public void addOrUpdate(){
+    public void addOrUpdate() {
         System.out.print("Nhập mã học sinh: ");
         studentID = sc.nextLine();
-        System.out.print("Nhập điểm thường xuyên: ");
-        regularScore = sc.nextDouble();
-        System.out.print("Nhập điểm giữa kì: ");
-        midtermScore = sc.nextDouble();
-        System.out.print("Nhập điểm cuối kì: ");
-        finalScore = sc.nextDouble();
-        sc.nextLine();
 
-        Grade newGrade = new Grade(studentID, regularScore, midtermScore, finalScore);
-        gradeDB.addOrUpdateGrade(newGrade);
+        //Kiểm tra xem học sinh có mã studentID đã có điểm hay chưa
+        if (gradeDB.getGrades().containsKey(studentID)){
+            System.out.println("Học sinh có mã " + studentID + " đã có điểm trên hệ thống!");
+            return;
+        }
 
-        System.out.println("Cập nhật điểm thành công!");
+        try {
+            System.out.print("Nhập điểm thường xuyên: ");
+            regularScore = sc.nextDouble();
+            Validator.validateScore(regularScore);
+
+            System.out.print("Nhập điểm giữa kì: ");
+            midtermScore = sc.nextDouble();
+            Validator.validateScore(midtermScore);
+
+            System.out.print("Nhập điểm cuối kì: ");
+            finalScore = sc.nextDouble();
+            Validator.validateScore(finalScore);
+            sc.nextLine();
+
+            Grade newGrade = new Grade(studentID, regularScore, midtermScore, finalScore);
+            gradeDB.addOrUpdateGrade(newGrade);
+
+            System.out.println("Cập nhật điểm thành công!");
+        } catch (InvalidScoreException e){
+            System.out.println("Lỗi: " + e.getMessage());
+        }
+
     }
 }
