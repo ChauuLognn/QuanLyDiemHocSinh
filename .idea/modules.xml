@@ -2,7 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+<<<<<<< HEAD
       <module fileurl="file://$PROJECT_DIR$/QuanLyDiemHS.iml" filepath="$PROJECT_DIR$/QuanLyDiemHS.iml" />
+=======
+      <module fileurl="file://$PROJECT_DIR$/FinalPJOOP.iml" filepath="$PROJECT_DIR$/FinalPJOOP.iml" />
+>>>>>>> BackEnd
     </modules>
   </component>
 </project>

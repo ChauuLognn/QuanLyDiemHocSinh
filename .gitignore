@@ -2,7 +2,10 @@
 out/
 !**/src/main/**/out/
 !**/src/test/**/out/
+<<<<<<< HEAD
 .kotlin
+=======
+>>>>>>> BackEnd
 
 ### Eclipse ###
 .apt_generated
