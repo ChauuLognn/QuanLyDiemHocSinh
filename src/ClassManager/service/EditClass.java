@@ -2,6 +2,7 @@ package ClassManager.service;
 
 import ClassManager.Classes;
 import ClassManager.data.ClassDatabase;
+import Exception.*;
 
 import java.util.Scanner;
 
@@ -42,8 +43,12 @@ public class EditClass {
 
             switch (choose){
                 case 1 -> {
+                    String newClassName = "";
+
                     System.out.print("Nhập tên lớp mới: ");
-                    String newClassName = sc.nextLine();
+                    newClassName = sc.nextLine();
+
+
                     targetClass.setClassName(newClassName);
                     if(targetClass.getClassName().equalsIgnoreCase(newClassName)){
                         System.out.println("Cập nhật tên lớp mới thành công!");
